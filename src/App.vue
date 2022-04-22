@@ -3,7 +3,6 @@
   <sui-segment inverted>
   <div class="ui stackable orange inverted menu">
       
-      <h1> test </h1>
       <sui-menu-item ><img src="https://www.pngarts.com/files/8/Confused-Anime-PNG-Free-Download.png" alt=""></sui-menu-item>
       <router-link to ="/" >
       <sui-menu-item >Home</sui-menu-item> 
