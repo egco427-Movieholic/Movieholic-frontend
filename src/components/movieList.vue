@@ -6,11 +6,11 @@
         <div class="ui segment" style="background-color : black">
             <div class="input-group">
                 <sui-label ribbon color="orange">Movies</sui-label>
-                <input type="text" class="form-control" placeholder="Search..." v-model="search">
+                <input type="text" class="form-control" placeholder="Search..." v-model="this.searchWord">
                 <div>
-                    <sui-button color="yellow" attached="left">Search</sui-button>
-
-
+                    
+                    <sui-button @click="search()" color="yellow" attached="left">Search</sui-button>
+                    
                 </div>
             </div>
         </div>
@@ -20,18 +20,18 @@
         <br>
         <div>
             <Carousel :settings="settings" :breakpoints="breakpoints">
-                <Slide v-for="slide in 10" :key="slide">
+                <Slide v-for="(movie, key) in inTheaterMovies" :key='key'>
                     <div class="carousel__item">
-                        <sui-image src="https://th.bing.com/th/id/OIP.kBBUQtNmJQQHGYXRa7zreQAAAA?pid=ImgDet&rs=1" />
+                        <sui-image :src="`${movie.image}`" />
                         <br>
                         <sui-card-content>
                             <sui-card-description>
                                 <sui-card-meta>
-                                    <span class="date">year : test</span><br>
-                                    <span class="date">Rate : test2</span><br>
+                                    <span class="date">Genres : {{movie.genres}}</span><br>
+                                    <span class="date">Release State : {{movie.releaseState}}</span><br>
                                 </sui-card-meta>
                             </sui-card-description>
-                            <sui-card-header textAlign="center">test3 </sui-card-header>
+                            <sui-card-header textAlign="center">{{movie.title}} </sui-card-header>
 
                         </sui-card-content>
                         <br>
@@ -65,7 +65,7 @@
 
             
     <div style  = "text-align: center">
-            <router-link :to = "{path: 'moviedetail', name: 'movieDetail', params: {movie_id: movie.movie_id}}">
+            <router-link :to ="{path: 'moviedetail', name: 'movieDetail', params: {movie_id: movie.id}}">
                 <sui-button floated="center" color = "blue" >
                         Detail
                 </sui-button>
@@ -87,6 +87,8 @@
 <script>
 
 import axios from 'axios'
+import { getAuth } from 'firebase/auth'
+
 import {
         Carousel,
         Navigation,
@@ -105,8 +107,9 @@ export default {
         },
     data(){
         return{
-            search: '',
+            searchWord: '',
             popularMovies: [],
+            inTheaterMovies: [],
 
             settings: {
                     itemsToShow: 1,
@@ -129,35 +132,25 @@ export default {
         }  
     },
     mounted() {
-
-        axios.request('https://imdb-api.com/en/API/Top250Movies/k_up2i483u')
+        axios.request('https://imdb-api.com/en/API/Top250Movies/k_agfqs4x6')
         .then((response) => {
             
-            for(var i=0 ; i<10 ; i++)
-            {
-                var urlLength = JSON.stringify(response.data.items[i].image)
-                var posterUrl = response.data.items[i].image.substring(0,urlLength.length - 32) + "._V1_Ratio0.6800_AL_.jpg"
-
-                this.popularMovies.push(
-                    {
-                        movie_id: response.data.items[i].id,
-                        title: response.data.items[i].title,
-                        rank: response.data.items[i].rank,
-                        year: response.data.items[i].year,
-                        image: posterUrl
-                    }
-                )
-                
-            }
-            console.log(this.popularMovies)
+            this.popularMovies = response.data.items.slice(0,10)
 
         })
         .catch((error) => {
 	        console.log(error);
-        })  
+        })
+        
+        axios.request('https://imdb-api.com/en/API/InTheaters/k_agfqs4x6')
+        .then((response) => {
+            this.inTheaterMovies = response.data.items.slice(0,10)
+        })
        
     },methods: {
-
+        search(){
+            this.$router.replace('/searchpage/'+this.searchWord)
+        }
     },
     computed:{
         // filterContacts : function(){
@@ -170,13 +163,11 @@ export default {
 </script>
    
 <style>
-    .card-img-top {
-        width: 100%;
-        height: 50vh;
-        object-fit: cover;
-
-
-    }
+.card-img-top {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+}
 .carouselprev--in-active,
 .carouselnext--in-active {
   display: none;

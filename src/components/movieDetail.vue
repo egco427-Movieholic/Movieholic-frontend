@@ -30,6 +30,15 @@
                 <div class="row">
                     <font face = "Times New Roman" size = "6"> Stars:  &nbsp;{{this.movie.stars}}</font>
                 </div>
+                <div class="row">
+                    <font face = "Times New Roman" size = "6"> plot:  &nbsp;{{this.movie.plot}}</font>
+                </div>
+                <div class="row">
+                    <font face = "Times New Roman" size = "6"> IMDB Rating:  &nbsp;{{this.movie.imDbRating}}</font>
+                </div>
+                <div class="row">
+                    <font face = "Times New Roman" size = "6"> Metacritic Rating:  &nbsp;{{this.movie.metacriticRating}}</font>
+                </div>
                 <br>
             </div>
             
@@ -82,6 +91,7 @@
 
 <script>
 import axios from 'axios'
+import { getAuth } from 'firebase/auth'
 
 export default {
     name: 'movieDetail',
@@ -91,14 +101,17 @@ export default {
             movie: {},
             comments: [],
             newComment: {
-                postby: "test",
+                postby: "",
                 text: "",
             }
         }  
     },
     mounted(){
-        
-        axios.request('https://imdb-api.com/en/API/Title/k_up2i483u/' + this.movie_id)
+        //Get Username
+        let auth = getAuth()
+        this.newComment.postby = auth.currentUser.displayName
+
+        axios.request('https://imdb-api.com/en/API/Title/k_agfqs4x6/' + this.movie_id)
         .then((response) => {
             this.movie = response.data
         })
