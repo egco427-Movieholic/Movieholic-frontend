@@ -57,20 +57,20 @@ export default {
     },
     mounted() {
         this.searchWord = this.$route.params.title
-
-        axios.request('https://imdb-api.com/en/API/SearchMovie/k_agfqs4x6/' + this.searchWord)
-        .then((response) => {
-            this.searchMovies = response.data.results
-            console.log(response)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        this.search()
     },
     methods: {
         search(){
-            this.$router.replace('/searchpage/'+this.searchWord)
-
+            if(this.searchWord == '')
+            {
+                this.$router.replace('/movielist')
+            }
+            else
+            {
+                this.$router.replace('/searchpage/'+this.searchWord)
+            }
+            
+            //==========[Get movies from name]==========//
             axios.request('https://imdb-api.com/en/API/SearchMovie/k_agfqs4x6/' + this.searchWord)
             .then((response) => {
                 this.searchMovies = response.data.results
