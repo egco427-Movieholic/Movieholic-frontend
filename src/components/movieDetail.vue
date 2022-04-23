@@ -62,10 +62,10 @@
             <sui-button  type="submit" basic color="blue" @click="addComment">
                 <sui-icon name="save" />Save
             </sui-button>
-            <sui-comment v-for="(comment, key) in comments" :key='key'>
+            <sui-comment v-for="(comment, key) in currentComments" :key='key'>
                 <!--<sui-comment-avatar src="/images/avatar/small/matt.jpg" />-->
                 <sui-comment-content>
-                <sui-comment-author as="a">Post By : {{comment.postby}}</sui-comment-author>
+                <sui-comment-author as="a">Post By : {{comment.postBy}}</sui-comment-author>
                 <sui-comment-metadata>
                     <span>{{comment.postTime}}</span>
                 </sui-comment-metadata>
@@ -99,18 +99,19 @@ export default {
         return{      
             movie_id: this.$route.params.movie_id,
             movie: {},
-            comments: [],
+            currentComments: [],
             newComment: {
-                postby: "",
+                postBy: "",
                 text: "",
             }
         }  
     },
     mounted(){
-        //Get Username
+        //==========[Get Username]==========//
         let auth = getAuth()
-        this.newComment.postby = auth.currentUser.displayName
+        this.newComment.postBy = auth.currentUser.displayName
 
+        //==========[Get Movie Detail]==========//
         axios.request('https://imdb-api.com/en/API/Title/k_agfqs4x6/' + this.movie_id)
         .then((response) => {
             this.movie = response.data
@@ -119,23 +120,21 @@ export default {
             console.log(error)
         })
 
+        //==========[Get Movie Comments]==========//
         axios.get('http://localhost:5000/movieDetail/' + this.movie_id)
         .then((response) => {
-            console.log(response.data[0].comments)
-            this.comments = response.data[0].comments
+            console.log(response.data.comments)
+            this.currentComments = response.data.comments
         })
         .catch((error) => {
             console.log(error)
         })
     },
     methods: {
-        addComment(){
-            var currentComment = {
-                movie_id: this.movie_id,
-                comments: this.comments
-            }
 
-            axios.post('http://localhost:5000/movieDetail/' + this.newComment.postby + '/' + this.newComment.text, currentComment)
+        //==========[Add Movie Comment]==========//
+        addComment(){
+            axios.post('http://localhost:5000/movieDetail/' + this.movie_id, this.newComment)
             .then((response) => {
                 console.log(response.data)
             })

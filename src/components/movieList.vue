@@ -132,9 +132,11 @@ export default {
         }  
     },
     mounted() {
+        //==========[Get top 250 movies]==========//
         axios.request('https://imdb-api.com/en/API/Top250Movies/k_agfqs4x6')
         .then((response) => {
             
+            //==========[Get only first 10 from 250]==========//
             this.popularMovies = response.data.items.slice(0,10)
 
         })
@@ -142,6 +144,7 @@ export default {
 	        console.log(error);
         })
         
+        //==========[Get in theater movies]==========//
         axios.request('https://imdb-api.com/en/API/InTheaters/k_agfqs4x6')
         .then((response) => {
             this.inTheaterMovies = response.data.items.slice(0,10)
@@ -152,13 +155,6 @@ export default {
             this.$router.replace('/searchpage/'+this.searchWord)
         }
     },
-    computed:{
-        // filterContacts : function(){
-        //     return this.movie.filter((contact)=>{
-        //         return contact.firstname.toLowerCase().match(this.search.toLowerCase()) || contact.lastname.toLowerCase().match(this.search.toLowerCase()) ||  (contact.firstname +" "+contact.lastname).toLowerCase().match(this.search.toLowerCase())
-        //     })
-        // }
-    }
 }
 </script>
    
