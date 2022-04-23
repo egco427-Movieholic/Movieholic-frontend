@@ -22,6 +22,7 @@
  
             <button class="ui button" type="submit" @click.prevent="signIn">Login</button>
             <button class="ui button" type="submit" @click="signUp">Sign Up</button>
+            <button class="ui button" type="submit" @click.prevent="signInGoogle">Sign in with Google</button>
         </form>
 
     </sui-segment>
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
 export default {
     name: 'SignIn',
     data(){
@@ -55,6 +56,20 @@ export default {
         },
         signUp(){
           this.$router.replace('/signuppage')
+        },
+        signInGoogle () {
+            const provider = new GoogleAuthProvider()
+            const auth = getAuth()
+            signInWithPopup(auth, provider)
+            .then((result)=>{
+                //const credential = GoogleAuthProvider.credentialFromResult(result)
+                //const token = credential.accessToken
+                //const user = result.user
+                this.$router.replace('/movielist')
+            })
+            .catch((error)=>{
+                alert(error.message)
+            })
         }
     },
 }
