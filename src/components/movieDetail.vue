@@ -42,9 +42,6 @@
                 <br>
             </div>
             
-            <iframe width="700" height="500"
-                :src="`${this.video}`">
-            </iframe>
         </div> 
         <br><br><br><br><br><br>
         <div class="row">
@@ -102,7 +99,6 @@ export default {
         return{      
             movie_id: this.$route.params.movie_id,
             movie: {},
-            video: "",
             currentComments: [],
             newComment: {
                 postBy: "",
@@ -116,7 +112,7 @@ export default {
         this.newComment.postBy = auth.currentUser.displayName
 
         //==========[Get Movie Detail]==========//
-        axios.request('https://imdb-api.com/en/API/Title/k_59lwjr0e/' + this.movie_id)
+        axios.request('https://imdb-api.com/en/API/Title/k_agfqs4x6/' + this.movie_id)
         .then((response) => {
             this.movie = response.data
         })
@@ -129,15 +125,6 @@ export default {
         .then((response) => {
             console.log(response.data.comments)
             this.currentComments = response.data.comments
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-
-        //==========[Get Movie Trailer]==========//
-        axios.get('https://imdb-api.com/en/API/Trailer/k_59lwjr0e/' + this.movie_id)
-        .then((response) => {
-            this.video = response.data.linkEmbed
         })
         .catch((error) => {
             console.log(error)

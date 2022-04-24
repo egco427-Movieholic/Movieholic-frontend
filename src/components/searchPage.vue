@@ -71,7 +71,7 @@ export default {
             }
             
             //==========[Get movies from name]==========//
-            axios.request('https://imdb-api.com/en/API/SearchMovie/k_59lwjr0e/' + this.searchWord)
+            axios.request('https://imdb-api.com/en/API/SearchMovie/k_agfqs4x6/' + this.searchWord)
             .then((response) => {
                 this.searchMovies = response.data.results
                 console.log(response)

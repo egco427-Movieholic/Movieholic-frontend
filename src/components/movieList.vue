@@ -133,7 +133,7 @@ export default {
     },
     mounted() {
         //==========[Get top 250 movies]==========//
-        axios.request('https://imdb-api.com/en/API/Top250Movies/k_59lwjr0e')
+        axios.request('https://imdb-api.com/en/API/Top250Movies/k_agfqs4x6')
         .then((response) => {
             
             //==========[Get only first 10 from 250]==========//
@@ -145,7 +145,7 @@ export default {
         })
         
         //==========[Get in theater movies]==========//
-        axios.request('https://imdb-api.com/en/API/InTheaters/k_59lwjr0e')
+        axios.request('https://imdb-api.com/en/API/InTheaters/k_agfqs4x6')
         .then((response) => {
             this.inTheaterMovies = response.data.items.slice(0,10)
         })
