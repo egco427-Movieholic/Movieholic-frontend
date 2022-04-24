@@ -1,5 +1,6 @@
 <template style="background-color : black">
-
+<div>
+<navbar msg="Welcome to Your Vue.js"/>
 <sui-segment >
 <!-- Search -->
 
@@ -80,11 +81,13 @@
        
 </sui-card-group>
 </sui-segment>
-
+</div>
     
 </template>
 
 <script>
+
+import navbar from './navbar.vue'
 
 import axios from 'axios'
 import { getAuth } from 'firebase/auth'
@@ -104,6 +107,7 @@ export default {
             Carousel,
             Slide,
             Navigation,
+            navbar
         },
     data(){
         return{
@@ -133,7 +137,7 @@ export default {
     },
     mounted() {
         //==========[Get top 250 movies]==========//
-        axios.request('https://imdb-api.com/en/API/Top250Movies/k_agfqs4x6')
+        axios.request('https://imdb-api.com/en/API/Top250Movies/k_59lwjr0e')
         .then((response) => {
             
             //==========[Get only first 10 from 250]==========//
@@ -145,7 +149,7 @@ export default {
         })
         
         //==========[Get in theater movies]==========//
-        axios.request('https://imdb-api.com/en/API/InTheaters/k_agfqs4x6')
+        axios.request('https://imdb-api.com/en/API/InTheaters/k_59lwjr0e')
         .then((response) => {
             this.inTheaterMovies = response.data.items.slice(0,10)
         })
