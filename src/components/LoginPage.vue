@@ -25,7 +25,7 @@
         <br>
         <button class="ui button" type="submit" @click.prevent="signInGoogle" style="background-color:#e3e3e3; color:black;box-shadow:3px 3px #a8a8a8; width:100%;font-size:20px;margin-top:10px">
           Sign in via
-          <img src='../assets/google_PNG19644.png' style="width:30%;margin-top:-7px;margin-bottom:-10px">
+          <img src='../assets/google_PNG19644.png' style="width:30%;margin-top:-15px;margin-bottom:-10px">
         </button>
         <br><br>
         <hr style="color:white">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import {getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
+import {getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, setPersistence, browserSessionPersistence} from 'firebase/auth'
 export default {
     name: 'SignIn',
     data(){
@@ -57,13 +57,24 @@ export default {
     methods: {
         signIn(){
             const auth = getAuth()
-            signInWithEmailAndPassword(auth, this.User.email, this.User.password)
-            .then((user) =>{
-                this.$router.replace('/movielist')
+            setPersistence(auth, browserSessionPersistence)
+             .then(() => {
+               signInWithEmailAndPassword(auth, this.User.email, this.User.password)
+               .then((user) => {
+                 this.$router.replace('/movielist')
+               })
             })
-            .catch((error)=>{
-                alert(error.message)
-            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+            });
+            // signInWithEmailAndPassword(auth, this.User.email, this.User.password)
+            // .then((user) =>{
+            //     this.$router.replace('/movielist')
+            // })
+            // .catch((error)=>{
+            //     alert(error.message)
+            // })
         },
         signUp(){
           this.$router.replace('/signuppage')

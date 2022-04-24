@@ -1,8 +1,8 @@
-<template style="background-color : black">
-    
+<template style="background-color : black">   
     <navbar msg="Welcome to Your Vue.js" />
     <sui-segment inverted style="margin-top:-20px">
         <!-- Search -->
+
 
         <div class="ui segment" style="background-color : black">
             <div class="input-group">
@@ -54,6 +54,7 @@
             </Carousel>
             <!-- <br><br> -->
         </div>
+
         <!-- <br><br><br><br> -->
 
         <h1 style="text-align:center;">
@@ -122,15 +123,16 @@
 
 
 
+
 </template>
 
 <script>
     import navbar from './navbar.vue'
-
     import axios from 'axios'
     import {
         getAuth
     } from 'firebase/auth'
+
 
     import {
         Carousel,
@@ -201,6 +203,7 @@
             }
         },
     }
+    
 </script>
 
 <style>
