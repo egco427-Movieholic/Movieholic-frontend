@@ -1,9 +1,9 @@
 <template>
 <div id="container" style="position:relative;"> 
-  <p style="background-image: url('https://img5.goodfon.com/original/1920x1080/c/af/sssssss-aaaaaaaaaaa-ddddddddd-fffffffff-rrrrrrr.jpg');postition:absolute;margin:0px;padding:0px;height:100vh;filter:brightness(50%);background-size: auto;"></p>
-  <img src='../assets/large_movieholic_resize.png' style="position:absolute;width: 35rem;top: 12%; left: 50%; transform: translate(-50%, -50%);">
-    <sui-grid-column style="width: 35rem;margin:auto; background-color:#1f1f1f; position:absolute;width: 35rem;top: 55%; left: 50%; transform: translate(-50%, -50%);padding:50px;">
-      <sui-segment raised style="background-color:#1f1f1f">
+  <p style="background-image: url('https://img5.goodfon.com/original/1920x1080/c/af/sssssss-aaaaaaaaaaa-ddddddddd-fffffffff-rrrrrrr.jpg');postition:absolute;margin:0px;padding:0px;height:100vh;filter:brightness(30%);background-size: auto;"></p>
+  <img id="logo" src='../assets/large_movieholic_resize.png' style="position:absolute;width: 35rem;">
+    <sui-grid-column id="popup-window" style="background-color:#1f1f1f; position:absolute;top: 55%; left: 50%; transform: translate(-50%, -50%);padding:50px;">
+      <sui-segment id="popup-detail" raised style="background-color:#1f1f1f">
       <!-- <div class="ui black segment" style="background-color:#363636">
         <sui-label ribbon color="red" >Signin</sui-label>
       </div>   -->
@@ -87,5 +87,35 @@ export default {
 </script>
 
 <style>
+#logo{
+  animation: logo 4s ease forwards;
+}
 
+#popup-window{
+  animation: popup-window 5s ease forwards;
+}
+
+#popup-detail{
+  animation: popup-detail 6s ease forwards;
+}
+
+@keyframes logo {
+  0%{top: 50%; left: 50%; transform: translate(-50%, -50%);width: 0rem;}
+  10%{top: 50%; left: 50%; transform: translate(-50%, -50%);width: 35rem;}
+  30%{top: 50%; left: 50%; transform: translate(-50%, -50%);}
+  100%{top: 12%; left: 50%; transform: translate(-50%, -50%);}
+}
+
+@keyframes popup-window {
+  0%{width: 0%;margin:0;opacity: 0;}
+  50%{width: 0%;margin:0;opacity: 0;}
+  70%{opacity: 0;}
+  100%{width: 35rem;margin:auto;opacity: 1;}
+}
+
+@keyframes popup-detail {
+  0%{opacity: 0;}
+  70%{opacity: 0;}
+  100%{opacity: 1;}
+}
 </style>
