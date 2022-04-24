@@ -1,6 +1,6 @@
 <template>
 <div id="container" style="position:relative;"> 
-  <p style="background-image: url('https://img5.goodfon.com/original/1920x1080/c/af/sssssss-aaaaaaaaaaa-ddddddddd-fffffffff-rrrrrrr.jpg');postition:absolute;margin:0px;padding:0px;height:100vh;filter:brightness(50%);background-repeat: repeat-y;"></p>
+  <p style="background-image: url('https://img5.goodfon.com/original/1920x1080/c/af/sssssss-aaaaaaaaaaa-ddddddddd-fffffffff-rrrrrrr.jpg');postition:absolute;margin:0px;padding:0px;height:100vh;filter:brightness(50%);background-size: auto;"></p>
   <img src='../assets/large_movieholic_resize.png' style="position:absolute;width: 35rem;top: 12%; left: 50%; transform: translate(-50%, -50%);">
     <sui-grid-column style="width: 35rem;margin:auto; background-color:#1f1f1f; position:absolute;width: 35rem;top: 55%; left: 50%; transform: translate(-50%, -50%);padding:50px;">
       <sui-segment raised style="background-color:#1f1f1f">
