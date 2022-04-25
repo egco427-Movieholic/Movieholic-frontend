@@ -1,6 +1,4 @@
 <template>
-<navbar msg="Welcome to Your Vue.js" />
- <sui-segment inverted style="margin-top:-20px">
     <sui-segment inverted>
     <div class="row">
         <div class="col-sm-2"></div>
@@ -104,14 +102,9 @@
 <script>
 import axios from 'axios'
 import { getAuth } from 'firebase/auth'
-import navbar from './navbar.vue'
 
 export default {
     name: 'movieDetail',
-    components: {
-        navbar
-    },
-
     data(){
         return{      
             movie_id: this.$route.params.movie_id,
