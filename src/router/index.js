@@ -7,6 +7,7 @@ import loginPage from '../components/LoginPage.vue'
 import signUpPage from '../components/SignUpPage.vue'
 import signUpSuccess from '../components/SignUpSuccess.vue'
 import searchGenre from '../components/searchGenre.vue'
+import about from '../components/aboutPage.vue'
 
 import {getAuth} from "firebase/auth"
 
@@ -46,7 +47,7 @@ const routes = [
         }
     },
     {
-        path: '/moviedetail/:movie_id',
+        path: '/moviedetail/:id',
         name: 'movieDetail',
         component: movieDetail,
         meta: {
@@ -64,7 +65,18 @@ const routes = [
     {
         path: '/searchgenre/:genre',
         name: 'searchgenre',
-        component: searchGenre
+        component: searchGenre,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: about,
+        meta: {
+            requiresAuth: true
+        }
     }
 ]
 

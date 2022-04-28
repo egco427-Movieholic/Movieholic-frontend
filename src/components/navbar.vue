@@ -1,5 +1,4 @@
 <template>
-
     <sui-menu size="big" style="background-color : black">
         <sui-menu style="background-color : black">
             <sui-menu-item>
@@ -10,13 +9,32 @@
                        </router-link>
             </sui-menu-item>
 
-            
+                <router-link :to = "{path: 'about', name: 'About', params: {}}">
                 <sui-menu-item style="color:white">About</sui-menu-item>
+                </router-link>
          
-
             <sui-menu-item>
                 <!-- <router-link :to = "{path: 'searchgenre', name: 'searchgenre', params: {genre: 'Comedy'}}"> -->
-                <sui-dropdown style="color:white" item text="Genre" floating labeled button searchInMenu v-model="this.selectGenre" :options="[
+                <sui-dropdown style="color:white" item text="Genre" v-model="this.selectGenre">
+                    <sui-dropdown-menu>
+                        <sui-dropdown-item v-on:click="searchGenre('action')" text="Action" />
+                        <sui-dropdown-item v-on:click="searchGenre('adventure')" text="Adventure" />
+                        <sui-dropdown-item v-on:click="searchGenre('comedy')" text="Comedy" />
+                        <sui-dropdown-item v-on:click="searchGenre('crime')" text="Crime" />
+                        <sui-dropdown-item v-on:click="searchGenre('fantasy')" text="Fantasy" />
+                        <sui-dropdown-item v-on:click="searchGenre('horror')" text="Horror" />
+                        <sui-dropdown-item v-on:click="searchGenre('romance')" text="Romance" />
+                        <sui-dropdown-item v-on:click="searchGenre('sci-fi')" text="Sci-fi" />
+                        <sui-dropdown-item v-on:click="searchGenre('thriller')" text="Thriller" />
+                        
+                    </sui-dropdown-menu>
+                </sui-dropdown> 
+                <!-- </router-link> -->
+            </sui-menu-item>
+
+            <!-- <sui-menu-item>
+                <router-link :to = "{path: 'searchgenre', name: 'searchgenre', params: {genre: 'Comedy'}}">
+                <sui-dropdown style="color:white" item text="Genre" v-model="this.selectGenre" :options="[
                         
                             {
                             text: 'Comedy',
@@ -69,15 +87,14 @@
                             label: { color: 'brown', empty: true, circular: true }
                             }
                         ]" />
-                    <!-- </router-link> -->
-            </sui-menu-item>
+                    </router-link>
+            </sui-menu-item> -->
         </sui-menu>
 
         <sui-menu-item position="right">
             <sui-dropdown icon="user" button pointing="top right">
                 <sui-dropdown-menu>
-                    <sui-dropdown-item text="Profile" />
-                    <sui-dropdown-item text="Logout" />
+                    <sui-dropdown-item v-on:click="logout" text="Logout" />
                 </sui-dropdown-menu>
             </sui-dropdown>
         </sui-menu-item>
@@ -93,19 +110,33 @@
 
 
 <script>
-
+import { getAuth , signOut } from 'firebase/auth'
 export default {
- name: "navbar",
+    name: "navbar",
     data() {
         return{
             selectGenre: ''
         }
     },
-     methods: {
-        searchGenre(){
-            console.log(this.selectGenre)
-        } 
-     }
+    methods: {
+        searchGenre(genre) {
+            this.$router.replace('/searchgenre/' + genre)
+        },
+        logout() {
+            const auth = getAuth()
+            signOut(auth)
+            .then(() => {
+                this.$router.replace('/signin')
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
+        }
+     },
+     watch: {
+            // call again the method if the route changes
+            '$route': 'searchgenre'
+    }
 }       
 
 

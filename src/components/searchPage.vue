@@ -1,6 +1,6 @@
 <template style="background-color : black">
 
-<navbar msg="Welcome to Your Vue.js"/>
+<navbar />
 <sui-segment inverted style="margin-top:-20px">
 <!-- Search -->
 
@@ -29,25 +29,12 @@
                     <sui-card-header textAlign="center" style="color:crimson"> {{movie.title}} </sui-card-header>
                 </font>
 
-
-                <!-- <sui-card-meta style="text-align:center">
-
-                    <font face="Comic sans MS" size=" 4">
-                        <sui-card-description>
-                            <span style="color:white"><strong>Year </strong>: {{movie.year}} </span><br>
-                            <span style="color:white"><strong>Rank </strong>: {{movie.rank}} </span><br>
-                            <span style="color:white"><strong>Rating </strong>: {{movie.imDbRating}} </span><br>
-                        </sui-card-description>
-                    </font>
-
-                </sui-card-meta> -->
-
             </sui-card-content> 
 
 
            <div class="card-footer" style="background-color:white">
 
-                    <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {movie_id: movie.id}}">
+                    <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {id: movie.id}}">
                         <center>
                             <sui-button attached="bottom" type="submit" id="saveButton" basic color="black">
                                 <sui-icon name="info circle icon" />Detail
@@ -78,6 +65,7 @@
 <script>
 import axios from 'axios'
 import navbar from './navbar.vue'
+
 export default {
     name: "searchPage",
     components:{

@@ -68,13 +68,6 @@ export default {
               const errorCode = error.code;
               const errorMessage = error.message;
             });
-            // signInWithEmailAndPassword(auth, this.User.email, this.User.password)
-            // .then((user) =>{
-            //     this.$router.replace('/movielist')
-            // })
-            // .catch((error)=>{
-            //     alert(error.message)
-            // })
         },
         signUp(){
           this.$router.replace('/signuppage')
@@ -84,9 +77,6 @@ export default {
             const auth = getAuth()
             signInWithPopup(auth, provider)
             .then((result)=>{
-                //const credential = GoogleAuthProvider.credentialFromResult(result)
-                //const token = credential.accessToken
-                //const user = result.user
                 this.$router.replace('/movielist')
             })
             .catch((error)=>{
