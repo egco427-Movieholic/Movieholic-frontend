@@ -1,5 +1,5 @@
 <template style="background-color : black">   
-    <navbar msg="Welcome to Your Vue.js" />
+    <navbar/>
     <sui-segment inverted style="margin-top:-20px">
         <!-- Search -->
 
@@ -16,19 +16,18 @@
             </div>
         </div>
 
+        <!---------- IN THEATER ---------->
         <br>
         <h1 style="text-align:center;">
             <font face="Bedrock" size="10">IN THEATER</font>
         </h1>
-        <!-- <br> -->
+        <br>
 
         <div>
             <Carousel :settings="settings" :breakpoints="breakpoints">
                 <Slide v-for="(movie, key) in inTheaterMovies" :key='key' >
                     <div class="carousel__item">
                         <sui-image :src="`${movie.image}`"/>
-                        <!-- ถ้าเป็นรูปเล็กเปิดใช้งานอันนี้ -->
-                        <!-- <sui-image :src="`${movie.image}`" style="width:100%" /> -->
                         <br>
                         <sui-card-content>
                             <sui-card-header textAlign="center" style="font-size:40px; color:crimson">{{movie.title}}
@@ -57,19 +56,57 @@
 
         <!-- <br><br><br><br> -->
 
+        <!---------- Coming Soon ---------->
+        <br>
+        <h1 style="text-align:center;">
+            <font face="Bedrock" size="10">Coming Soon</font>
+        </h1>
+        <br>
+
+        <div>
+            <Carousel :settings="settings" :breakpoints="breakpoints">
+                <Slide v-for="(movie, key) in comingSoonMovies" :key='key' >
+                    <div class="carousel__item">
+                        <sui-image :src="`${movie.image}`"/>
+                        <br>
+                        <sui-card-content>
+                            <sui-card-header textAlign="center" style="font-size:40px; color:crimson">{{movie.title}}
+                            </sui-card-header>
+                            <sui-card-description>
+                                <sui-card-meta>
+                                    <font face="Comic sans MS" size=" 5">
+                                        <span><strong style="color:crimson">Genres</strong> :
+                                            {{movie.genres}}</span><br>
+                                        <span><strong style="color:crimson">Release State</strong> :
+                                            {{movie.releaseState}}</span><br>
+                                    </font>
+                                </sui-card-meta>
+                            </sui-card-description>
+                        </sui-card-content>
+                        <br>
+                    </div>
+                </Slide>
+
+                <template #addons>
+                    <Navigation />
+                </template>
+            </Carousel>
+            <!-- <br><br> -->
+        </div>
+
+        <!---------- TOP 20 ---------->
         <h1 style="text-align:center;">
             <font face="Bedrock" size="10">TOP 20</font>
         </h1>
         <!-- <br>
         <br> -->
 
-
         <div style="margin:0px 50px">
             <div class="ui four doubling cards">
 
-                <sui-card v-for="(movie, key) in popularMovies" :key='key' style="background-color:#000000">
+                <sui-card v-for="(movie, key) in top20Movies" :key='key' style="background-color:#000000">
 
-                    <sui-image class="card-img-top" v-bind:src="movie.image"/>
+                    <sui-image class="card-img-top" v-bind:src="movie.image" />
 
                     <sui-card-content>
                         <font face="Verdana" size=" 5">
@@ -93,13 +130,13 @@
 
                     <div class="card-footer" style="background-color:white">
 
-                        <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {movie_id: movie.id}}">
+                        
                             <center>
-                                <sui-button attached="bottom" type="submit" id="saveButton" basic color="black">
-                                    <sui-icon name="info circle icon" />Detail
-                                </sui-button>
+                                <router-link :to = "{path: 'moviedetail', name: 'movieDetail', params:{id:movie.id}}">
+                                <sui-button attached="bottom" type="submit" id="saveButton" basic color="black">Detail</sui-button>
+                                </router-link>
                             </center>
-                        </router-link>
+                        
                     </div>
                 </sui-card>
             </div>
@@ -109,16 +146,16 @@
 
 
 
-    <!--Footer Start-->
+    <!------------ Footer Start ------------>
     <footer class="bg-dark text-center text-white" style="margin-top:-15px">
-        <!-- Copyright -->
+        <!------------ Copyright ------------>
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2020 Copyright:
             <a class="text-white">MovieHolic</a>
         </div>
-        <!-- End Copyright -->
+        <!------------ End Copyright ------------>
     </footer>
-    <!--Footer End-->
+    <!----------- -Footer End ------------>
 
 
 
@@ -129,10 +166,7 @@
 <script>
     import navbar from './navbar.vue'
     import axios from 'axios'
-    import {
-        getAuth
-    } from 'firebase/auth'
-
+    import {getAuth} from 'firebase/auth'
 
     import {
         Carousel,
@@ -154,11 +188,12 @@
         data() {
             return {
                 searchWord: '',
-                popularMovies: [],
+                top20Movies: [],
                 inTheaterMovies: [],
+                comingSoonMovies: [],
 
                 settings: {
-                    itemsToShow: 1,
+                    itemsToShow: 4,
                     snapAlign: 'center',
                 },
                 // breakpoints are mobile first
@@ -166,12 +201,12 @@
                 breakpoints: {
                     // 700px and up
                     700: {
-                        itemsToShow: 1,
+                        itemsToShow: 4,
                         snapAlign: 'center',
                     },
                     // 1024 and up
                     1024: {
-                        itemsToShow: 1,
+                        itemsToShow: 4,
                         snapAlign: 'start',
                     },
                 },
@@ -183,7 +218,12 @@
                 .then((response) => {
 
                     //==========[Get only first 20 from 250]==========//
-                    this.popularMovies = response.data.items.slice(0, 20)
+                    this.top20Movies = response.data.items.slice(0, 20)
+
+                    for(var i=0 ; i<20 ; i++)
+                    {
+                        this.top20Movies[i].image = this.top20Movies[i].image.split("._")[0] + '._V1_AL_.jpg'
+                    }
 
                 })
                 .catch((error) => {
@@ -192,15 +232,40 @@
 
             //==========[Get in theater movies]==========//
             axios.request('https://imdb-api.com/en/API/InTheaters/k_59lwjr0e')
-                .then((response) => {
-                    this.inTheaterMovies = response.data.items.slice(0, 10)
-                })
+            .then((response) => {
+                this.inTheaterMovies = response.data.items.slice(0, 10)
+
+                for(var i=0 ; i<this.inTheaterMovies.length ; i++)
+                {
+                    this.inTheaterMovies[i].image = this.inTheaterMovies[i].image.split("._")[0] + '._V1_AL_.jpg'
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+            //==========[Get coming soon movies]==========//
+            axios.request('https://imdb-api.com/en/API/ComingSoon/k_59lwjr0e')
+            .then((response) => {
+                this.comingSoonMovies = response.data.items
+
+                for(var i=0 ; i<this.comingSoonMovies.length ; i++)
+                {
+                    this.comingSoonMovies[i].image = this.comingSoonMovies[i].image.split("._")[0] + '._V1_AL_.jpg'
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
 
         },
         methods: {
             search() {
-                this.$router.replace('/searchpage/' + this.searchWord)
-            }
+                if(this.searchWord != '')
+                {
+                    this.$router.replace('/searchpage/' + this.searchWord)
+                }
+            },
         },
     }
     
