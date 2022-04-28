@@ -1,6 +1,6 @@
 <template>
     <navbar/>
-    <sui-segment inverted>
+    <sui-segment inverted style="margin-top:-20px">
 
         <div class="row" id='video'>
             <div class="col-sm-2"></div>

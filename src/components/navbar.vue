@@ -95,6 +95,7 @@
             <sui-dropdown icon="user" button pointing="top right">
                 <sui-dropdown-menu>
                     <sui-dropdown-item v-on:click="logout" text="Logout" />
+                    <sui-dropdown-item v-on:click="profile" text="Profile" />
                 </sui-dropdown-menu>
             </sui-dropdown>
         </sui-menu-item>
@@ -102,9 +103,7 @@
 
     </sui-menu>
 
-    <p>
-        {{this.selectGenre}}
-        </P>
+
 
 </template>
 
@@ -131,12 +130,14 @@ export default {
             .catch((error) => {
                 alert(error.message)
             })
+        },
+        
+        profile() {
+           this.$router.replace('/profile')
+        
         }
      },
-     watch: {
-            // call again the method if the route changes
-            '$route': 'searchgenre'
-    }
+    
 }       
 
 

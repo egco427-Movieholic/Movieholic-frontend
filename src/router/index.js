@@ -8,7 +8,7 @@ import signUpPage from '../components/SignUpPage.vue'
 import signUpSuccess from '../components/SignUpSuccess.vue'
 import searchGenre from '../components/searchGenre.vue'
 import about from '../components/aboutPage.vue'
-
+import profile from '../components/Profile.vue'
 import {getAuth} from "firebase/auth"
 
 const routes = [
@@ -74,6 +74,14 @@ const routes = [
         path: '/about',
         name: 'About',
         component: about,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: profile,
         meta: {
             requiresAuth: true
         }
