@@ -26,6 +26,10 @@
           <!-- <label style="color:crimson"><b>Confirm Password</b></label> -->
           <input type="text" v-model="User.password" placeholder="Confirm Password" style="padding: 20px;border-radius:10px;background-color:#363636;color:white">
         </div>
+        <div class="field">
+          <!-- <label style="color:crimson"><b>Confirm Password</b></label> -->
+          <input type="text" v-model="User.image" placeholder="ImageUrl" style="padding: 20px;border-radius:10px;background-color:#363636;color:white">
+        </div>
         <br><br>
         <button class="ui button" type="submit" @click.prevent="signUp" style="background-color:crimson; color:white;box-shadow:3px 3px #a7112f; width:100%;font-size:20px">
           Confirm
@@ -53,7 +57,8 @@ export default {
       User: {
         username: '',
         email: '',
-        password: ''
+        password: '',
+        image:"",
       }
     }
   },
@@ -63,9 +68,10 @@ export default {
       createUserWithEmailAndPassword(auth, this.User.email, this.User.password)
       .then((user) =>{
 
-        updateProfile(auth.currentUser, {displayName: this.User.username})
-        console.log(auth)
-        this.$router.replace('/signupsuccess')
+        updateProfile(auth.currentUser, {displayName: this.User.username, photoURL:this.User.image})
+      //  updateProfile(auth.currentUser, {photoURL: this.User.image})
+        console.log(auth.currentUser)
+      this.$router.replace('/signupsuccess')
 
       })
       .catch((error)=>{
