@@ -1,31 +1,21 @@
 <template>
-   <navbar/>
-    <sui-segment inverted style="margin-top:-20px">
- 
-        
-
-        <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
-            <sui-segment style="background-color:#a30f2d;width:100%;padding:10px;display:block;margin-left:auto;margin-right:auto;height:1000px">
-                <br>
-             <h1 style="text-align:center;">
-                 <font face="Bedrock" size="10">Your Profile</font>
-            </h1>
-                <sui-image :src="`${this.image}`"/>
-            <h3 >
-                 <font face="Bedrock" size="7">Name : {{this.name}}</font>
-            </h3>
-            <h3 >
-                 <font face="Bedrock" size="7">Email : {{this.email}}</font>
-            </h3>
-            </sui-segment> 
+    <div id="background" style="position:relative; height:100vh">
+        <navbar/>
+        <div id="container">
+            <center>
+                <div class="container" style="margin:18vh 25vw 0vh 25vw;background-color:#363636;width:auto;height:45vh;border-radius:80px">
+                        <sui-label ribbon color="red" style="width:20vw;padding:15px;transform:translate(0, -50%); font-size:1.5em">Profile</sui-label>
+                    <br>
+                    <sui-image :src="`${this.image}`" style="width:15vw;height:auto; float:left;margin:0vh 5vh 0vh 5vh; border-radius:100%;background-color:#8c0d26;"/>
+                    <div style="background-color:#8c0d26;margin-left:10vw;margin-right:3vw;margin-top:5vh;border-radius:25px">
+                        <h2 style="color:white;font-size:2em;padding:3vh 0vw 0vh 0vw;text-align:left">Username : {{this.name}}</h2>
+                        <hr style="color:white">
+                        <h4 style="color:white;font: size 1.5em;padding:0vh 0vw 3vh 0vw;text-align:left">Email: {{this.email}}</h4>
+                    </div>
+                </div>
+            </center>
         </div>
-        <div class="col-sm-2"></div>
-        </div>
-    <br>
-
-    </sui-segment>
+    </div>
 </template>
 
 <script>
@@ -61,57 +51,9 @@ export default {
 </script>
 
 <style>
-    .card-img-top {
-        width: 100%;
-        height: 50vh;
-        object-fit: cover;
+
+    #background{
+        background-image:url('../assets/mainbg.png');
     }
 
-    .carouselprev--in-active,
-    .carouselnext--in-active {
-        display: none;
-    }
-
-    .carousel__prev {
-        color: black;
-        width: 25px;
-        height: 25px;
-        margin-left: 15px;
-        box-sizing: content-box;
-        background-color: cornsilk;
-        border: 2px solid rgb(0, 0, 0);
-    }
-
-    .carousel__next {
-        color: black;
-        width: 25px;
-        height: 25px;
-        margin-right: 15px;
-        box-sizing: content-box;
-        background-color: cornsilk;
-        border: 2px solid rgb(0, 0, 0);
-    }
-
-    .carousel__slide>.carousel__item {
-        transform: scale(1);
-        opacity: 0.5;
-        transition: 0.5s;
-    }
-
-    .carousel__slide--visible>.carousel__item {
-        opacity: 1;
-        transform: rotateY(0);
-    }
-
-    .carousel__slide--next>.carousel__item {
-        transform: scale(0.9) translate(-10px);
-    }
-
-    .carousel__slide--prev>.carousel__item {
-        transform: scale(0.9) translate(10px);
-    }
-
-    .carousel__slide--active>.carousel__item {
-        transform: scale(1.1);
-    }
 </style>
