@@ -15,7 +15,8 @@
     "vue": "^3.0.4",
     "vue-fomantic-ui": "^0.12.0",
     "vue-router": "^4.0.14",
-    "vue3-carousel": "^0.1.38"
+    "vue3-carousel": "^0.1.38",
+    "vueperslides": "^3.3.2"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.4",
