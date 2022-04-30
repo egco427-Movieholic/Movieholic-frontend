@@ -8,12 +8,13 @@
                     size="small" />
                        </router-link>
             </sui-menu-item>
-
-                <router-link :to = "{path: 'about', name: 'About', params: {}}">
-                <sui-menu-item style="color:white">About</sui-menu-item>
-                </router-link>
          
             <sui-menu-item>
+
+                 <!-- <router-link to="/about">
+                    <sui-menu-item style="color:white;">About</sui-menu-item>
+                </router-link> -->
+
                 <!-- <router-link :to = "{path: 'searchgenre', name: 'searchgenre', params: {genre: 'Comedy'}}"> -->
                 <sui-dropdown style="color:white" item text="Genre" v-model="this.selectGenre">
                     <sui-dropdown-menu>
@@ -142,3 +143,9 @@ export default {
 
 
 </script>
+
+
+<style>
+
+
+</style>

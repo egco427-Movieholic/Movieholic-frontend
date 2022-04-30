@@ -78,13 +78,20 @@ export default {
         signInGoogle () {
             const provider = new GoogleAuthProvider()
             const auth = getAuth()
-            signInWithPopup(auth, provider)
-            .then((result)=>{
-                this.$router.replace('/movielist')
-            })
-            .catch((error)=>{
-                alert(error.message)
-            })
+            setPersistence(auth, browserSessionPersistence)
+              .then(() => {
+                signInWithPopup(auth, provider)
+                  .then((user) => {
+                    this.$router.replace('/movielist')
+                  })
+                  .catch((error) => {
+                    console.log(error)
+                  })
+              })
+              .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+              });
         }
     },
 }
