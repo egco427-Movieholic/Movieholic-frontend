@@ -10,25 +10,25 @@
         <sui-segment id="popup-detail-signup" raised style="background-color:#1f1f1f">
           <h2 style="color:white; font-weight:bold;text-align:left;margin:0.4em 0.5em">Create an account</h2>
           <form class="ui form" style="padding:3vh">
-            <div class="field">
+            <div class="required field">
               <!-- <label style="color:crimson"><b>Username</b></label> -->
-              <input type="text" v-model="User.username" placeholder="Username" style="padding: 1em;border-radius:10px;background-color:#363636;color:white">
+              <input type="text" v-model="User.username" placeholder="Username" style="padding: 1em;border-radius:10px;background-color:#363636;color:white" required>
             </div>
-            <div class="field">
+            <div class="required field">
               <!-- <label style="color:crimson"><b>Email</b></label> -->
-              <input type="text" v-model="User.email" placeholder="Email" style="padding: 1em;border-radius:10px;background-color:#363636;color:white">
+              <input type="email" v-model="User.email" placeholder="Email" style="padding: 1em;border-radius:10px;background-color:#363636;color:white" required>
             </div>
-            <div class="field">
+            <div class="required field">
               <!-- <label style="color:crimson"><b>Password</b></label> -->
-              <input type="text" v-model="User.password" placeholder="Password" style="padding: 1em;border-radius:10px;background-color:#363636;color:white">
+              <input type="password" v-model="User.password" placeholder="Password" style="padding: 1em;border-radius:10px;background-color:#363636;color:white" required>
             </div>
-            <div class="field">
+            <div class="required field">
               <!-- <label style="color:crimson"><b>Confirm Password</b></label> -->
-              <input type="text" v-model="User.password" placeholder="Confirm Password" style="padding: 1em;border-radius:10px;background-color:#363636;color:white">
+              <input type="password" v-model="User.confirmpw" placeholder="Confirm Password" style="padding: 1em;border-radius:10px;background-color:#363636;color:white" required>
             </div>
-            <div class="field">
+            <div class="required field">
               <!-- <label style="color:crimson"><b>Confirm Password</b></label> -->
-              <input type="text" v-model="User.image" placeholder="ImageUrl" style="padding: 1em;border-radius:10px;background-color:#363636;color:white">
+              <input type="text" v-model="User.image" placeholder="ImageUrl" style="padding: 1em;border-radius:10px;background-color:#363636;color:white" required>
             </div>
             <button class="ui button" type="submit" @click.prevent="signUp" style="background-color:crimson; color:white;box-shadow:3px 3px #a7112f; width:100%;font-size:18px">
               Confirm
@@ -58,28 +58,41 @@ export default {
         username: '',
         email: '',
         password: '',
-        image: ''
+        image: '',
+        confirmpw: ''
       }
     }
   },
   methods: {
     signUp(){
       const auth = getAuth()
-      createUserWithEmailAndPassword(auth, this.User.email, this.User.password)
-      .then((user) =>{
+      let validEmailFormat = /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/
 
-        if(this.User.image == '')
-        {
-          this.User.image = 'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png'
+      if(this.User.password == this.User.confirmpw && this.User.email.match(validEmailFormat) && this.User.username != ''){
+          createUserWithEmailAndPassword(auth, this.User.email, this.User.password)
+            .then((user) =>{
+
+              if(this.User.image == '')
+              {
+                this.User.image = 'https://fomantic-ui.com/images/avatar/large/helen.jpg'
+              }
+              updateProfile(auth.currentUser, {displayName: this.User.username, photoURL: this.User.image})
+              console.log(auth)
+              this.$router.replace('/signupsuccess')
+
+            })
+            .catch((error)=>{
+              alert(error.message)
+            })
+      }
+      else{
+        if(this.User.username == ''){
+          alert("Please fill username")
         }
-        updateProfile(auth.currentUser, {displayName: this.User.username, photoURL: this.User.image})
-        console.log(auth)
-        this.$router.replace('/signupsuccess')
-
-      })
-      .catch((error)=>{
-        alert(error.message)
-      })
+        else if(!this.User.email.match(validEmailFormat) || this.User.password != this.User.confirmpw){
+          alert("Incorrect email or password , please try again")
+        }   
+      }
     },
   }
 }
