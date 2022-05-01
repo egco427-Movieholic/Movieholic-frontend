@@ -8,12 +8,12 @@
                 <iframe allow="fullscreen" :src="`${this.trailer}`" style="width:60vw;height:70vh"></iframe>
             </div>
 
-            <div style="width:40vh;height:50vh;float:left; margin:3vh 0.5vw 2vh 2vw" >
+            <div style="width:20vw;height:50vh;float:left; margin:3vh 0.5vw 2vh 2vw" >
                 <sui-image :src="`${this.image}`"/>
             </div>
-            <div style="width:60vw;height:65vh;padding-top:5vh;padding-left:25vw;padding-right:2vw;background-color:#363636;color:white">
+            <div style="width:60vw;height:35vw;padding-top:5vh;padding-left:25vw;padding-right:2vw;background-color:#363636;color:white">
                 <div class="row">
-                    <p style="font-size:1.75em">
+                    <p style="font-size:1.75rem">
                         {{this.detail.title}}
                         ({{this.detail.year}})
                     </p>
@@ -38,23 +38,23 @@
                 </div>
             </div>
             <div style="width:100%;height:30vh;background-color:#8c0d26">
-                <div class="row">
-                    <div class="col-sm-4" style="width:20vw">
+                <div class="row" style="margin:auto;">
+                    <div class="col-sm-4" style="width:12vw;height:12vw; background-color:crimson;border-radius:100%;margin-top:3.25vh;margin-left:6vw;border:solid gold">
                         <center>
-                            <img src='https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg' style="width:10vw;margin-top:6vh" > <br>
-                            <strong style="color:gold;font-size:3em;">{{this.detail.imDbRating}}/10</strong>
+                            <img src='https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg' style="width:6vw;margin-top:6vh" > <br>
+                            <strong style="color:gold;font-size:2.2em;">{{this.detail.imDbRating}}/10</strong>
                         </center>
                     </div>
-                    <div class="col-sm-4" style="width:20vw">
+                    <div class="col-sm-4" style="width:12vw;height:12vw; background-color:crimson;border-radius:100%;margin-top:3.25vh;margin-left:6vw;border:solid gold">
                         <center>
-                            <img src='https://upload.wikimedia.org/wikipedia/commons/4/48/Metacritic_logo.svg' style="width:18vw;margin-top:7vh"  > <br>
-                            <strong style="color:gold;font-size:3em;">{{this.detail.metacriticRating}}/100</strong>
+                            <img src='https://upload.wikimedia.org/wikipedia/commons/4/48/Metacritic_logo.svg' style="width:10vw;margin-top:7vh"  > <br>
+                            <strong style="color:gold;font-size:2.2em;">{{this.detail.metacriticRating}}/100</strong>
                         </center>
                     </div>
-                    <div class="col-sm-4" style="width:20vw">
+                    <div class="col-sm-4" style="width:12vw;height:12vw; background-color:crimson;border-radius:100%;margin-top:3.25vh;margin-left:6vw;border:solid gold">
                         <center>
-                            <img src='../assets/large_movieholic_resize.png' style="width:18vw;margin-top:5.5vh" > <br>
-                            <strong style="color:gold;font-size:3em;">{{this.movieholicRating}}/10</strong>
+                            <img src='../assets/large_movieholic_resize.png' style="width:10vw;margin-top:6vh" > <br>
+                            <strong style="color:gold;font-size:2.2em;">{{this.movieholicRating}}/10</strong>
                         </center>
                     </div>
                 </div>
@@ -70,11 +70,19 @@
                     Post Review &nbsp;&nbsp;<sui-icon name="comment" />
                 </sui-button>
             </div>
-            <hr>
-            <sui-comment v-for="(review, key) in currentCommentAndVote" :key='key'>
-                <sui-comment-content style="background-color:crimson;padding:20px;border-radius:15px;margin:20px">
-                    <sui-comment-author >Review By : {{review.postBy}} &nbsp;&nbsp;&nbsp;{{review.postTime}} &nbsp;&nbsp;&nbsp; Score: {{review.score}}</sui-comment-author>
-                    <sui-comment-text>
+            <hr v-if="!this.IsVoted">
+            <sui-comment v-for="(review, key) in currentCommentAndVote" :key='key' style="background-color:#8c0d26;padding:3vh">
+                <sui-comment-content style="background-color:#363636;padding:20px;border-radius:15px;color:white">
+                    <sui-comment-author >
+                        <strong>
+                            {{review.postBy}}
+                        </strong>
+                        <i style="float:right">{{review.postTime}}</i>
+                        <br>
+                        Score: {{review.score || "0"}}
+                        <br>
+                    </sui-comment-author>
+                    <sui-comment-text style="margin-top:1vh">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{review.text}}
                     </sui-comment-text>
                 </sui-comment-content>
