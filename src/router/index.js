@@ -64,7 +64,7 @@ const routes = [
     },
     {
         path: '/searchgenre/:genre',
-        name: 'searchgenre',
+        name: 'searchGenre',
         component: searchGenre,
         meta: {
             requiresAuth: true
