@@ -1,275 +1,165 @@
 <template>
-    <navbar/>
-    <sui-segment inverted style="margin-top:-20px">
+    <div id="background" style="position:relative;">
+        <navbar/>
+        <div style="background-color:#363636;margin-left:20vw;margin-right:20vw;width:60vw">
+            <div class="col-sm-8">
+                <iframe allow="fullscreen" :src="`${this.trailer}`" style="width:60vw;height:70vh"></iframe>
+            </div>
 
-        <div class="row" id='video'>
-            <div class="col-sm-2"></div>
-                <div class="col-sm-8">
-                    <br>
-                    <iframe width="1000" height="560" allow="fullscreen" :src="`${this.trailer}`"></iframe>
-                    <br>
+            <div style="width:40vh;height:50vh;float:left; margin:3vh 0.5vw 2vh 2vw" >
+                <sui-image :src="`${this.image}`"/>
+            </div>
+            <div style="width:60vw;height:65vh;padding-top:5vh;padding-left:25vw;padding-right:2vw;background-color:#363636;color:white">
+                <div class="row">
+                    <p style="font-size:1.75em">
+                        {{this.detail.title}}
+                        ({{this.detail.year}})
+                    </p>
+                    &nbsp;&nbsp;
+                    {{this.detail.genres}},
+                    {{this.detail.runtimeStr}}
                 </div>
-            <div class="col-sm-2"></div>
-        </div>
-
-        <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-2" style="margin:auto" >
-            <sui-image :src="`${this.image}`"/>
-        </div>
-        <div class="col-sm-6" style="padding:60px">
-            <div class="row">
-                
-                <h1>
-                    Title:  &nbsp;  {{this.detail.title}}
-                    &nbsp;({{this.detail.year}})
-                </h1>
-                &nbsp;&nbsp;&nbsp;
-                {{this.detail.genres}},
-                {{this.detail.runtimeStr}}
-
-            </div>
-            <br>
-            <div class="row">
-                &nbsp;&nbsp;&nbsp;{{this.detail.plot}}
-            </div>
-            <br>
-            <div class="row">
-                Directors:  &nbsp;  {{this.detail.directors}}
-            </div>
-            <div class="row">
-                Casts:  &nbsp;{{this.detail.stars}}
-            </div>
-            <br>
-            <div class="row">
-                 Award:  &nbsp;{{this.detail.awards}}
-            </div>
-            <br>
-            <div class="row">
-                IMDB Rating:  &nbsp;{{this.detail.imDbRating}}
-            </div>
-            <div class="row">
-                 Metacritic Rating:  &nbsp;{{this.detail.metacriticRating}}
-            </div>
-            <div class="row">
-                 Movie Holic Rating:  &nbsp;{{this.movieholicRating}}
-            </div>
-            <br>
-        </div>
-        <div class="col-sm-2"></div>  
-        </div>
-
-        <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
-            <sui-segment style="background-color:#363636">
-                <br><br>
-                <div style="background-color:#a30f2d;width:50%;padding:10px;display:block;margin-left:auto;margin-right:auto;">
-                    <h2 style="margin:20px" v-if="!this.IsVoted" >Rate this movie</h2>
-                    <sui-rating :defaultRating="0" :maxRating="10" v-model="this.newVote.score" color="red" v-if="!this.IsVoted" style="padding:0px 0px 20px 35px;display:block;margin-left:auto;margin-right:auto;"/>
-                    <sui-button type="submit" @click="addVote" v-if="!this.IsVoted" style="display:block;margin-left:auto;margin-right:auto;background-color:crimson;width:90%;height:50px;border-radius:15px;">
-                        Vote &nbsp;&nbsp;
-                    </sui-button>
-                    <br>
-                    <input type="text" placeholder="description" v-model="this.newComment.text"  style="background-color:#fbd0d9;padding:10px;width:90%;height:100px;display:block;margin-left:auto;margin-right:auto;border-radius:15px;border-width:0px;">
-                    <br>
-                    <sui-button  type="submit" @click="addComment" style="display:block;margin-left:auto;margin-right:auto;background-color:crimson;width:90%;height:50px;border-radius:15px;">
-                        Post Comment &nbsp;&nbsp;<sui-icon name="comment" />
-                    </sui-button>
-                    <br><br>
+                <br>
+                <div class="row">
+                    &nbsp;&nbsp;&nbsp;{{this.detail.plot}}
                 </div>
-                <br><br>
-                <hr>
-                <sui-comment v-for="(comment, key) in comments" :key='key'>
-                    <sui-comment-content style="background-color:crimson;padding:20px;border-radius:15px;margin:20px">
-                        <sui-comment-author >Post By : {{comment.postBy}} &nbsp;&nbsp;&nbsp;{{comment.postTime}}</sui-comment-author>
-                        <sui-comment-text>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{comment.text}}
-                        </sui-comment-text>
-                    </sui-comment-content>
-                </sui-comment>
-            </sui-segment> 
+                <br>
+                <div class="row">
+                    Directors: {{this.detail.directors}}
+                </div>
+                <div class="row">
+                    Casts: {{this.detail.stars}}
+                </div>
+                <br>
+                <div class="row">
+                    Award: {{this.detail.awards}}
+                </div>
+            </div>
+            <div style="width:100%;height:30vh;background-color:#8c0d26">
+                <div class="row">
+                    <div class="col-sm-4" style="width:20vw">
+                        <center>
+                            <img src='https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg' style="width:10vw;margin-top:6vh" > <br>
+                            <strong style="color:gold;font-size:3em;">{{this.detail.imDbRating}}/10</strong>
+                        </center>
+                    </div>
+                    <div class="col-sm-4" style="width:20vw">
+                        <center>
+                            <img src='https://upload.wikimedia.org/wikipedia/commons/4/48/Metacritic_logo.svg' style="width:18vw;margin-top:7vh"  > <br>
+                            <strong style="color:gold;font-size:3em;">{{this.detail.metacriticRating}}/100</strong>
+                        </center>
+                    </div>
+                    <div class="col-sm-4" style="width:20vw">
+                        <center>
+                            <img src='../assets/large_movieholic_resize.png' style="width:18vw;margin-top:5.5vh" > <br>
+                            <strong style="color:gold;font-size:3em;">{{this.movieholicRating}}/10</strong>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <div v-if="!this.IsVoted" style="background-color:#8c0d26;width:40vw;margin-left:10vw;margin-right:10vw;margin-top:5vh">
+                <h2 style="padding:3vh 3vw 0vh 3vw; color:white" v-if="!this.IsVoted" >Rate this movie</h2>
+                <center>
+                    <sui-rating :defaultRating="0" :maxRating="10" v-model="this.newVote.score" color="red" v-if="!this.IsVoted" style="width:20vw;margin:5vh"/>
+                </center>
+                <input type="text" placeholder="Review" v-model="this.newComment.text" v-if="!this.IsVoted" style="background-color:#fbd0d9;padding:10px;width:30vw;height:100px;margin:1vh 5vw 1vh 5vw;border-radius:15px;border-width:0px;">
+                <br>
+                <sui-button  type="submit" @click="addReview" v-if="!this.IsVoted" style="margin:3vh 5vw 3vh 5vw;background-color:crimson;width:30vw;height:50px;border-radius:15px;">
+                    Post Review &nbsp;&nbsp;<sui-icon name="comment" />
+                </sui-button>
+            </div>
+            <hr>
+            <sui-comment v-for="(comment, key) in comments" :key='key'>
+                <sui-comment-content style="background-color:crimson;padding:20px;border-radius:15px;margin:20px">
+                    <sui-comment-author >Review By : {{comment.postBy}} &nbsp;&nbsp;&nbsp;{{comment.postTime}}</sui-comment-author>
+                    <sui-comment-text>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{comment.text}}
+                    </sui-comment-text>
+                </sui-comment-content>
+            </sui-comment>
         </div>
-        <div class="col-sm-2"></div>
-        </div>
-    <br>
-
-    </sui-segment>
+    </div>
 </template>
 
 <script>
-import navbar from './navbar.vue'
 import axios from 'axios'
 import { getAuth } from 'firebase/auth'
 
 export default {
     name: 'movieDetail',
-    components: {
-        navbar
-    },
     data(){
         return{      
-            detail: '',
-            image: '',
-            trailer: '',
-            comments: [],
+            movie_id: this.$route.params.movie_id,
+            movie: {},
+            currentComments: [],
             newComment: {
                 postBy: "",
                 text: "",
-            },
-            newVote: {
-                voteBy: "",
-                email: "",
-                score: 0,
-            },
-            IsVoted: false,
-            movieholicRating: ""
-        }
+            }
+        }  
     },
-    mounted() {
+    mounted(){
+        //==========[Get Username]==========//
         let auth = getAuth()
         this.newComment.postBy = auth.currentUser.displayName
-        this.newVote.voteBy = auth.currentUser.displayName
-        this.newVote.email = auth.currentUser.email
 
         //==========[Get Movie Detail]==========//
-        axios.request('https://imdb-api.com/en/API/Title/k_59lwjr0e/' + this.$route.params.id)
+        axios.request('https://imdb-api.com/en/API/Title/k_59lwjr0e/' + this.movie_id)
         .then((response) => {
-            this.image = response.data.image
-            this.detail = response.data
-            console.log(this.detail)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-
-        //==========[Get Movie Trailer]==========//
-        axios.request('https://imdb-api.com/en/API/YouTubeTrailer/k_59lwjr0e/' + this.$route.params.id)
-        .then((response) => {
-            this.trailer = response.data.videoUrl.replace('watch?v=','embed/')
-            if(this.trailer == '')
-            {
-                document.getElementById('video').hidden = true
-            }
+            this.movie = response.data
         })
         .catch((error) => {
             console.log(error)
         })
 
         //==========[Get Movie Comments]==========//
-        axios.get('http://localhost:5000/movieDetail/comment/' + this.$route.params.id)
+        axios.get('http://localhost:5000/movieDetail/comment/' + this.movie_id)
         .then((response) => {
-            this.comments = response.data.comments
+            console.log(response.data.comments)
+            this.currentComments = response.data.comments
         })
         .catch((error) => {
             console.log(error)
         })
 
-        //==========[Check IsVoted?]=======//
-        axios.get('http://localhost:5000/movieDetail/vote/' + this.$route.params.id + "/" + this.newVote.email)
+        //==========[Get Movie Trailer]==========//
+        axios.request('https://imdb-api.com/API/Trailer/k_59lwjr0e/' + this.movie_id)
         .then((response) => {
-            if(JSON.stringify(response.data) != '{}')
-            {
-                this.IsVoted = true
-            }
-        })
-        .catch((error) => {
-                console.log(error)
-        })
-
-        //==========[Get Movie Votes]==========//
-        axios.get('http://localhost:5000/movieDetail/vote/' + this.$route.params.id)
-        .then((response) => {
-            this.movieholicRating = response.data.averageVote
+            this.movie = response.data
         })
         .catch((error) => {
             console.log(error)
         })
     },
     methods: {
-        //==========[Add Movie Comment]==========//
-        addComment() {
-            axios.post('http://localhost:5000/movieDetail/comment/' + this.$route.params.id, this.newComment)
-            .then((response) => {
-                
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-           
-           
-            window.location.reload()
-        },
-        addVote() {
+        //==========[Add Movie Review]==========//
+        addReview(){
             if(!this.IsVoted){
-               axios.post('http://localhost:5000/movieDetail/vote/' + this.$route.params.id, this.newVote)
+                axios.post('http://localhost:5000/movieDetail/vote/' + this.$route.params.id, this.newVote)
                 .then((response) => {
                     console.log(this.newVote)
                 })
                 .catch((error) => {
                     console.log(error)
                 })
-           
-           }
 
-           window.location.reload()
+                axios.post('http://localhost:5000/movieDetail/comment/' + this.$route.params.id, this.newComment)
+                .then((response) => {
+                    
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+                window.location.reload()
+           }
         }
     }
+
 }
 </script>
 
 <style>
-    .card-img-top {
-        width: 100%;
-        height: 50vh;
-        object-fit: cover;
-    }
-
-    .carouselprev--in-active,
-    .carouselnext--in-active {
-        display: none;
-    }
-
-    .carousel__prev {
-        color: black;
-        width: 25px;
-        height: 25px;
-        margin-left: 15px;
-        box-sizing: content-box;
-        background-color: cornsilk;
-        border: 2px solid rgb(0, 0, 0);
-    }
-
-    .carousel__next {
-        color: black;
-        width: 25px;
-        height: 25px;
-        margin-right: 15px;
-        box-sizing: content-box;
-        background-color: cornsilk;
-        border: 2px solid rgb(0, 0, 0);
-    }
-
-    .carousel__slide>.carousel__item {
-        transform: scale(1);
-        opacity: 0.5;
-        transition: 0.5s;
-    }
-
-    .carousel__slide--visible>.carousel__item {
-        opacity: 1;
-        transform: rotateY(0);
-    }
-
-    .carousel__slide--next>.carousel__item {
-        transform: scale(0.9) translate(-10px);
-    }
-
-    .carousel__slide--prev>.carousel__item {
-        transform: scale(0.9) translate(10px);
-    }
-
-    .carousel__slide--active>.carousel__item {
-        transform: scale(1.1);
+    #background{
+        background-image:url('../assets/mainbg.png');
     }
 </style>
