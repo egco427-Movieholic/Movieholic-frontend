@@ -110,6 +110,7 @@ export default {
 
 @keyframes popup-window-signup {
   0%{margin-left:-5vh ;opacity: 0;}
+  100%{opacity: 1;}
 }
 
 </style>
