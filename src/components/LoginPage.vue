@@ -63,6 +63,9 @@ export default {
                .then((user) => {
                  this.$router.replace('/movielist')
                })
+               .catch((error) => {
+                 console.log(error)
+               })
             })
             .catch((error) => {
               const errorCode = error.code;
