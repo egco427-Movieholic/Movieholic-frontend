@@ -38,23 +38,23 @@
                     Award: {{this.detail.awards}}
                 </div>
             </div>
-            <div style="width:100%;height:30vh;background-color:#8c0d26">
+            <div class="row" style="width:100%;height:30vh;background-color:#8c0d26;margin:auto">
                 <div class="row" style="margin:auto;">
                     <div class="col-sm-4" style="width:12vw;height:12vw; background-color:crimson;border-radius:100%;margin-top:3.25vh;margin-left:6vw;border:solid gold">
                         <center>
-                            <img src='https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg' style="width:6vw;margin-top:6vh" > <br>
+                            <img src='https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg' style="width:6vw;margin-top:30%" > <br>
                             <strong style="color:gold;font-size:2.2vw;">{{this.detail.imDbRating}}/10</strong>
                         </center>
                     </div>
                     <div class="col-sm-4" style="width:12vw;height:12vw; background-color:crimson;border-radius:100%;margin-top:3.25vh;margin-left:6vw;border:solid gold">
                         <center>
-                            <img src='https://upload.wikimedia.org/wikipedia/commons/4/48/Metacritic_logo.svg' style="width:10vw;margin-top:7vh"  > <br>
+                            <img src='https://upload.wikimedia.org/wikipedia/commons/4/48/Metacritic_logo.svg' style="width:10vw;margin-top:30%"  > <br>
                             <strong style="color:gold;font-size:2.2vw;">{{this.detail.metacriticRating}}/100</strong>
                         </center>
                     </div>
                     <div class="col-sm-4" style="width:12vw;height:12vw; background-color:crimson;border-radius:100%;margin-top:3.25vh;margin-left:6vw;border:solid gold">
                         <center>
-                            <img src='../assets/large_movieholic_resize.png' style="width:10vw;margin-top:6vh" > <br>
+                            <img src='../assets/large_movieholic_resize.png' style="width:10vw;margin-top:30%" > <br>
                             <strong style="color:gold;font-size:2.2vw;">{{this.movieholicRating}}/10</strong>
                         </center>
                     </div>
