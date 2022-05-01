@@ -22,10 +22,10 @@
     <div class="ui four doubling cards">
         <sui-card v-for="(movie, key) in searchMovies" :key='key' style="background-color:black">
 
-            <sui-image class="card-img-top" v-bind:src="movie.image" style="width:auto; height: 80%;" />
+            <sui-image class="card-img-top" v-bind:src="movie.image" />
 
             <sui-card-content>
-                <font face="Verdana" size=" 3">
+                <font face="Verdana" size=" 5">
                     <sui-card-header textAlign="center" style="color:crimson"> {{movie.title}} </sui-card-header>
                 </font>
 
@@ -34,7 +34,7 @@
 
            <div class="card-footer" style="background-color:white">
 
-                    <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {id: movie.id}}">
+                    <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {id: movie.id}}" style="text-decoration: none; color: inherit;">
                         <center>
                             <sui-button attached="bottom" type="submit" id="saveButton" basic color="black">
                                 <sui-icon name="info circle icon" />Detail
@@ -86,6 +86,10 @@ export default {
             if(this.searchWord == '')
             {
                 this.$router.replace('/movielist')
+            }
+            else
+            {
+                this.$router.replace('/searchpage/' + this.searchWord)
             }
             
             //==========[Get movies from name]==========//
