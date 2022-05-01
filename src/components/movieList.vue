@@ -32,26 +32,12 @@
 
     <br><br><br><br>
 
-    <div id="carousel-coming">
+    <!-- <div id="carousel-coming">
       <Carousel :autoplay='4000' :settings="settings_theater" :breakpoints="breakpoints_theater">
         <Slide v-for="(movie, key) in inTheaterMovies" :key='key'>
           <div class="carousel__item">
             <sui-image :src="`${movie.image}`" height="600" />
             <br>
-            <!-- <sui-card-content>
-              <sui-card-header textAlign="center" style="font-size:40px; color:crimson">{{movie.title}}
-              </sui-card-header>
-              <sui-card-description>
-                <sui-card-meta>
-                  <font face="Comic sans MS" size=" 5">
-                    <span><strong style="color:crimson">Genres</strong> :
-                      {{movie.genres}}</span><br>
-                    <span><strong style="color:crimson">Release State</strong> :
-                      {{movie.releaseState}}</span><br>
-                  </font>
-                </sui-card-meta>
-              </sui-card-description>
-            </sui-card-content> -->
             <br>
           </div>
         </Slide>
@@ -60,10 +46,19 @@
           <Navigation />
         </template>
       </Carousel>
-      <!-- <br><br> -->
+    </div> -->
+
+    <div class="row" style="margin:0 2vw">
+     <vueper-slides
+        class="no-shadow"
+        :visible-slides="3"
+        :slide-ratio="1.9 / 4"
+        :gap="1"
+        :dragging-distance="70">
+        <vueper-slide v-for="movie in inTheaterMovies" :key='key' :image=movie.image />
+    </vueper-slides>
     </div>
 
-    <!-- <br><br><br><br> -->
 
     <!---------- Coming Soon ---------->
     <br><br><br>
@@ -72,7 +67,21 @@
 
     <br><br><br><br>
 
-    <div id="carousel-coming">
+
+    <div class="row" style="margin:0 2vw">
+     <vueper-slides
+        class="no-shadow"
+        :visible-slides="3"
+        :slide-ratio="1.9 / 4"
+        :gap="1"
+        :dragging-distance="70">
+        <vueper-slide v-for="movie in comingSoonMovies" :key='key' :image=movie.image />
+    </vueper-slides>
+    </div>
+
+
+    
+    <!-- <div id="carousel-coming">
       <Carousel :settings="settings" :breakpoints="breakpoints">
         <Slide v-for="(movie, key) in comingSoonMovies" :key='key'>
           <div class="carousel__item">
@@ -86,8 +95,7 @@
           <Navigation />
         </template>
       </Carousel>
-      <!-- <br><br> -->
-    </div>
+    </div> -->
 
     <br><br><br>
 
@@ -124,14 +132,16 @@
 
 
           <div class="card-footer" style="background-color:white">
-            <center>
-              <router-link :to="{path: 'moviedetail', name: 'movieDetail', params:{id:movie.id}}" style="text-decoration: none; color: inherit;">
-                <sui-button attached="bottom" type="submit" id="saveButton" basic color="black" >
+
+                    <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {id: movie.id}}" style="text-decoration: none; color: inherit;">
+                        <center>
+                            <sui-button attached="bottom" type="submit" id="saveButton" basic color="black">
                                 <sui-icon name="info circle icon" />Detail
-                </sui-button>
-              </router-link>
-            </center>
+                            </sui-button>
+                        </center>
+                    </router-link>
           </div>
+
           </sui-card>
           </sui-card-group>
           </div>
@@ -164,11 +174,7 @@
     getAuth
   } from 'firebase/auth'
 
-  import {
-    Carousel,
-    Navigation,
-    Slide
-  } from 'vue3-carousel';
+  import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
   import 'vue3-carousel/dist/carousel.css';
   import {
