@@ -1,4 +1,5 @@
 <template>
+    <div style="margin-top:20px"></div>
     <div id="background" style="position:relative; height:100vh">
         <navbar/>
         <div id="container">

@@ -231,6 +231,14 @@
         // any settings not specified will fallback to the carousel settings
         breakpoints: {
           // 700px and up
+          300: {
+            itemsToShow: 1,
+            // snapAlign: 'center',
+          },
+          550: {
+            itemsToShow: 2,
+            // snapAlign: 'center',
+          },
           700: {
             itemsToShow: 3,
             // snapAlign: 'center',
@@ -245,6 +253,15 @@
           itemsToShow: 3,
         },
         breakpoints_theater: {
+          // 700px and up
+          300: {
+            itemsToShow: 1,
+            // snapAlign: 'center',
+          },
+          550: {
+            itemsToShow: 2,
+            // snapAlign: 'center',
+          },
           // 700px and up
           700: {
             itemsToShow: 3,

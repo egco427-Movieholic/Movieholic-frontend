@@ -95,8 +95,8 @@
         <sui-menu-item position="right">
             <sui-dropdown icon="user" button pointing="top right">
                 <sui-dropdown-menu>
-                    <sui-dropdown-item v-on:click="logout" text="Logout" />
                     <sui-dropdown-item v-on:click="profile" text="Profile" />
+                    <sui-dropdown-item v-on:click="logout" text="Logout" />
                 </sui-dropdown-menu>
             </sui-dropdown>
         </sui-menu-item>
