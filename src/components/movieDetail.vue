@@ -1,6 +1,8 @@
 <template>
     <div id="background" style="position:relative;">
-        <navbar/>
+        <div style="margin-top:-20px"/>
+            <navbar/>
+        
         <div style="background-color:#363636;margin-left:20vw;margin-right:20vw;width:60vw">
             <div class="col-sm-8">
                 <iframe allow="fullscreen" :src="`${this.trailer}`" style="width:60vw;height:70vh"></iframe>
@@ -60,20 +62,20 @@
             <div v-if="!this.IsVoted" style="background-color:#8c0d26;width:40vw;margin-left:10vw;margin-right:10vw;margin-top:5vh">
                 <h2 style="padding:3vh 3vw 0vh 3vw; color:white" v-if="!this.IsVoted" >Rate this movie</h2>
                 <center>
-                    <sui-rating :defaultRating="0" :maxRating="10" v-model="this.newVote.score" color="red" v-if="!this.IsVoted" style="width:20vw;margin:5vh"/>
+                    <sui-rating :defaultRating="0" :maxRating="10" v-model="this.newCommentAndVote.score" color="red" v-if="!this.IsVoted" style="width:20vw;margin:5vh"/>
                 </center>
-                <input type="text" placeholder="Review" v-model="this.newComment.text" v-if="!this.IsVoted" style="background-color:#fbd0d9;padding:10px;width:30vw;height:100px;margin:1vh 5vw 1vh 5vw;border-radius:15px;border-width:0px;">
+                <input type="text" placeholder="Review" v-model="this.newCommentAndVote.text" v-if="!this.IsVoted" style="background-color:#fbd0d9;padding:10px;width:30vw;height:100px;margin:1vh 5vw 1vh 5vw;border-radius:15px;border-width:0px;">
                 <br>
                 <sui-button  type="submit" @click="addReview" v-if="!this.IsVoted" style="margin:3vh 5vw 3vh 5vw;background-color:crimson;width:30vw;height:50px;border-radius:15px;">
                     Post Review &nbsp;&nbsp;<sui-icon name="comment" />
                 </sui-button>
             </div>
             <hr>
-            <sui-comment v-for="(comment, key) in comments" :key='key'>
+            <sui-comment v-for="(review, key) in currentCommentAndVote" :key='key'>
                 <sui-comment-content style="background-color:crimson;padding:20px;border-radius:15px;margin:20px">
-                    <sui-comment-author >Review By : {{comment.postBy}} &nbsp;&nbsp;&nbsp;{{comment.postTime}}</sui-comment-author>
+                    <sui-comment-author >Review By : {{review.postBy}} &nbsp;&nbsp;&nbsp;{{review.postTime}} &nbsp;&nbsp;&nbsp; Score: {{review.score}}</sui-comment-author>
                     <sui-comment-text>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{comment.text}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{review.text}}
                     </sui-comment-text>
                 </sui-comment-content>
             </sui-comment>
@@ -83,49 +85,79 @@
 
 <script>
 import axios from 'axios'
+import navbar from './navbar.vue'
 import { getAuth } from 'firebase/auth'
 
 export default {
     name: 'movieDetail',
+    components: {
+        navbar
+    },
     data(){
         return{      
-            movie_id: this.$route.params.movie_id,
-            movie: {},
-            currentComments: [],
-            newComment: {
+            movie_id: this.$route.params.id,
+            detail: {},
+            trailer: "",
+            image: "",
+            currentCommentAndVote: [],
+            movieholicRating: 0,
+            newCommentAndVote: {
                 postBy: "",
+                score: "",
+                email: "",
                 text: "",
-            }
+            },
+            IsVoted: false
         }  
     },
     mounted(){
-        //==========[Get Username]==========//
+        //==========[Get Username And Email]==========//
         let auth = getAuth()
-        this.newComment.postBy = auth.currentUser.displayName
+        this.newCommentAndVote.postBy = auth.currentUser.displayName
+        this.newCommentAndVote.email = auth.currentUser.email
+
+        //==========[Get Movie Trailer]==========//
+        axios.request('https://imdb-api.com/en/API/YouTubeTrailer/k_59lwjr0e/' + this.$route.params.id)
+        .then((response) => {
+            this.trailer = response.data.videoUrl.replace('watch?v=', 'embed/')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 
         //==========[Get Movie Detail]==========//
-        axios.request('https://imdb-api.com/en/API/Title/k_59lwjr0e/' + this.movie_id)
+        axios.request('https://imdb-api.com/en/API/Title/k_59lwjr0e/' + this.$route.params.id)
         .then((response) => {
-            this.movie = response.data
+            this.detail = response.data
+            this.image = response.data.image
         })
         .catch((error) => {
             console.log(error)
         })
 
         //==========[Get Movie Comments]==========//
-        axios.get('http://localhost:5000/movieDetail/comment/' + this.movie_id)
+        axios.get('http://localhost:5000/movieDetail/commentAndVote/' + this.$route.params.id)
         .then((response) => {
             console.log(response.data.comments)
-            this.currentComments = response.data.comments
+            this.currentCommentAndVote = response.data.commentAndVote
         })
         .catch((error) => {
             console.log(error)
         })
 
-        //==========[Get Movie Trailer]==========//
-        axios.request('https://imdb-api.com/API/Trailer/k_59lwjr0e/' + this.movie_id)
+        //==========[Get Average Score]==========//
+        axios.request('http://localhost:5000/movieDetail/averageRating/' + this.$route.params.id)
         .then((response) => {
-            this.movie = response.data
+            this.movieholicRating = response.data.averageVote
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        //==========[Get User Vote]==========//
+        axios.request('http://localhost:5000/movieDetail/checkUserVote/' + this.$route.params.id + '/' + this.newCommentAndVote.email)
+        .then((response) => {
+            this.IsVoted = response.data.IsVoted
         })
         .catch((error) => {
             console.log(error)
@@ -134,23 +166,15 @@ export default {
     methods: {
         //==========[Add Movie Review]==========//
         addReview(){
-            if(!this.IsVoted){
-                axios.post('http://localhost:5000/movieDetail/vote/' + this.$route.params.id, this.newVote)
-                .then((response) => {
-                    console.log(this.newVote)
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
 
-                axios.post('http://localhost:5000/movieDetail/comment/' + this.$route.params.id, this.newComment)
+            if(!this.IsVoted){
+                axios.post('http://localhost:5000/movieDetail/commentAndVote/' + this.$route.params.id, this.newCommentAndVote)
                 .then((response) => {
-                    
+                    window.location.reload()
                 })
                 .catch((error) => {
                     console.log(error)
                 })
-                window.location.reload()
            }
         }
     }

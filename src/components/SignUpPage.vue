@@ -57,7 +57,8 @@ export default {
       User: {
         username: '',
         email: '',
-        password: ''
+        password: '',
+        image: ''
       }
     }
   },
@@ -67,7 +68,7 @@ export default {
       createUserWithEmailAndPassword(auth, this.User.email, this.User.password)
       .then((user) =>{
 
-        updateProfile(auth.currentUser, {displayName: this.User.username})
+        updateProfile(auth.currentUser, {displayName: this.User.username, photoURL: this.User.image})
         console.log(auth)
         this.$router.replace('/signupsuccess')
 

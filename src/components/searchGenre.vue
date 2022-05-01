@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         search() {
-            this.$router.replace('/searchpage/'+this.searchGenre)
+            this.$router.replace('/searchgenre/'+this.searchGenre)
             //==========[Get movies from genre]==========//
             axios.request('https://imdb-api.com/API/AdvancedSearch/k_59lwjr0e/?genres=' + this.searchGenre)
             .then((response) => {

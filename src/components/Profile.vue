@@ -38,6 +38,9 @@ export default {
     },
     mounted() {
         let auth = getAuth()
+
+        console.log(auth)
+
         this.profile  = getAuth()
         this.name = auth.currentUser.displayName
         this.email = auth.currentUser.email
