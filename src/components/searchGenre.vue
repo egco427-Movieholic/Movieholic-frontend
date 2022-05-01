@@ -41,7 +41,7 @@ import axios from 'axios'
 import navbar from './navbar.vue'
 
 export default {
-    name: "searchPage",
+    name: "searchGenre",
     components:{
         navbar
     },

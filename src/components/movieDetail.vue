@@ -138,7 +138,6 @@ export default {
         //==========[Get Movie Comments]==========//
         axios.get('http://localhost:5000/movieDetail/commentAndVote/' + this.$route.params.id)
         .then((response) => {
-            console.log(response.data.comments)
             this.currentCommentAndVote = response.data.commentAndVote
         })
         .catch((error) => {
