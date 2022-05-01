@@ -100,18 +100,18 @@
     <div style="margin:0px 50px">
       <sui-card-group :itemsPerRow="4" doubling>
         <sui-card class="card-size" v-for="(movie, key) in top20Movies" :key='key' style="background-color:#000000">
-          <sui-image style="width:auto; height: 80%;" class="card-img-top" v-bind:src="movie.image" />
+          <sui-image  class="card-img-top" v-bind:src="movie.image" />
 
            <div class="card-body">
           <sui-card-content>
-            <font face="Aldrich" size=" 3">
+            <font face="Aldrich" size=" 5">
               <sui-card-header textAlign="center" style="color:crimson"> {{movie.title}}
               </sui-card-header>
             </font>
 
             <sui-card-meta style="text-align:center">
 
-              <font face="Krona One" size=" 2">
+              <font face="Krona One" size=" 3">
                 <sui-card-description>
                   <span style="color:white"><strong>Rank </strong>: {{movie.rank}} </span><br>
                 </sui-card-description>
@@ -125,8 +125,8 @@
 
           <div class="card-footer" style="background-color:white">
             <center>
-              <router-link :to="{path: 'moviedetail', name: 'movieDetail', params:{id:movie.id}}">
-                <sui-button attached="bottom" type="submit" id="saveButton" basic color="black">
+              <router-link :to="{path: 'moviedetail', name: 'movieDetail', params:{id:movie.id}}" style="text-decoration: none; color: inherit;">
+                <sui-button attached="bottom" type="submit" id="saveButton" basic color="black" >
                                 <sui-icon name="info circle icon" />Detail
                 </sui-button>
               </router-link>

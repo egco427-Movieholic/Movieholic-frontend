@@ -1,19 +1,18 @@
 <template style="background-color : black">
 <navbar />
  <sui-segment inverted style="margin-top:-20px">
-    <div class="ui segment" style="background-color : black">
-            
-    </div>
+
+
     <h1><font face = "Verdana" size = "8">Genre : "{{this.searchGenre}}"</font></h1>
     <br>
 
     <div class="ui four doubling cards">
         <sui-card v-for="(movie, key) in searchMovies" :key='key' style="background-color:black">
 
-            <sui-image class="card-img-top" v-bind:src="movie.image" style="width:auto; height: 80%;" />
+            <sui-image class="card-img-top" v-bind:src="movie.image" />
 
             <sui-card-content>
-                <font face="Verdana" size=" 3">
+                <font face="Verdana" size=" 5">
                     <sui-card-header textAlign="center" style="color:crimson"> {{movie.title}} </sui-card-header>
                 </font>
 
@@ -22,7 +21,7 @@
 
            <div class="card-footer" style="background-color:white">
 
-                    <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {id: movie.id}}">
+                    <router-link :to="{path: 'moviedetail', name: 'movieDetail', params: {id: movie.id}}" style="text-decoration: none; color: inherit;">
                         <center>
                             <sui-button attached="bottom" type="submit" id="saveButton" basic color="black">
                                 <sui-icon name="info circle icon" />Detail
@@ -34,6 +33,18 @@
     </div>
 
     </sui-segment>
+
+    <!------------ Footer Start ------------>
+  <footer class="bg-dark text-center text-white" style="margin-top:-15px">
+    <!------------ Copyright ------------>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white">MovieHolic</a>
+    </div>
+    <!------------ End Copyright ------------>
+  </footer>
+  <!----------- -Footer End ------------>
+
 </template>
 
 <script>
