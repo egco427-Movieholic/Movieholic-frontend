@@ -1,5 +1,5 @@
 <template>
-    <div style="margin-top:20px">
+    <!-- <div style="margin-top:20px"> -->
         <div id="background" style="position:relative; height:100vh">
             <navbar/>
             <div id="container" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-40%);background-color:#363636; width: 60vw; border: solid gold; border-radius:70px">
@@ -19,13 +19,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 
     <!------------ Footer Start ------------>
   <footer class="bg-dark text-center text-white" style="margin-top:-15px">
     <!------------ Copyright ------------>
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
+      © 2022 Copyright:
       <a class="text-white">MovieHolic</a>
     </div>
     <!------------ End Copyright ------------>

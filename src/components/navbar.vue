@@ -1,5 +1,5 @@
 <template>
-    <sui-menu size="big" style="background-color : black">
+    <sui-menu size="big" style="background-color : black;">
         <sui-menu style="background-color : black">
             <sui-menu-item>
                 <router-link to="/movielist">

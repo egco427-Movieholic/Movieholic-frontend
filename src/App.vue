@@ -1,6 +1,6 @@
 <template>
 
-    <div style="margin-top:-20px"></div>
+    <!-- <div style="margin-top:-20px"></div> -->
     <link href="https://unpkg.com/vueperslides/dist/vueperslides.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Bungee Inline' rel='stylesheet'>
