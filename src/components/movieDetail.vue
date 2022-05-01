@@ -157,7 +157,7 @@ export default {
         })
 
         //==========[Get Movie Comments]==========//
-        axios.get('http://localhost:5000/movieDetail/commentAndVote/' + this.$route.params.id)
+        axios.get('https://movieholic-backend.herokuapp.com/movieDetail/commentAndVote/' + this.$route.params.id)
         .then((response) => {
             this.currentCommentAndVote = response.data.commentAndVote
         })
@@ -166,7 +166,7 @@ export default {
         })
 
         //==========[Get Average Score]==========//
-        axios.request('http://localhost:5000/movieDetail/averageRating/' + this.$route.params.id)
+        axios.request('https://movieholic-backend.herokuapp.com/movieDetail/averageRating/' + this.$route.params.id)
         .then((response) => {
             this.movieholicRating = response.data.averageVote
         })
@@ -175,7 +175,7 @@ export default {
         })
 
         //==========[Get User Vote]==========//
-        axios.request('http://localhost:5000/movieDetail/checkUserVote/' + this.$route.params.id + '/' + this.newCommentAndVote.email)
+        axios.request('https://movieholic-backend.herokuapp.com/movieDetail/checkUserVote/' + this.$route.params.id + '/' + this.newCommentAndVote.email)
         .then((response) => {
             this.IsVoted = response.data.IsVoted
         })
@@ -188,7 +188,7 @@ export default {
         addReview(){
 
             if(!this.IsVoted){
-                axios.post('http://localhost:5000/movieDetail/commentAndVote/' + this.$route.params.id, this.newCommentAndVote)
+                axios.post('https://movieholic-backend.herokuapp.com/movieDetail/commentAndVote/' + this.$route.params.id, this.newCommentAndVote)
                 .then((response) => {
                     window.location.reload()
                 })
