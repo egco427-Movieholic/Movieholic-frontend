@@ -56,10 +56,12 @@ export default {
                .then((user) => {
                  this.$router.replace('/movielist')
                })
+               .catch((error1) => {
+                 alert(error1)
+               })
             })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
+            .catch((error2) => {
+                alert(error2)
             });
             // signInWithEmailAndPassword(auth, this.User.email, this.User.password)
             // .then((user) =>{

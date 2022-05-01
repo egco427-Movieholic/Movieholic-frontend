@@ -4,16 +4,16 @@
     <div class="ui segment" style="background-color : black">
             
     </div>
-    <h1><font face = "Verdana" size = "8">Genre : "{{this.$route.params.genre}}"</font></h1>
+    <h1><font face = "Verdana" size = "8">Genre : "{{this.searchGenre}}"</font></h1>
     <br>
 
     <div class="ui four doubling cards">
         <sui-card v-for="(movie, key) in searchMovies" :key='key' style="background-color:black">
 
-            <sui-image class="card-img-top" v-bind:src="movie.image" style="width:auto" />
+            <sui-image class="card-img-top" v-bind:src="movie.image" style="width:auto; height: 80%;" />
 
             <sui-card-content>
-                <font face="Verdana" size=" 5">
+                <font face="Verdana" size=" 3">
                     <sui-card-header textAlign="center" style="color:crimson"> {{movie.title}} </sui-card-header>
                 </font>
 

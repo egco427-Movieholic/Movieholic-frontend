@@ -68,6 +68,10 @@ export default {
       createUserWithEmailAndPassword(auth, this.User.email, this.User.password)
       .then((user) =>{
 
+        if(this.User.image == '')
+        {
+          this.User.image = 'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png'
+        }
         updateProfile(auth.currentUser, {displayName: this.User.username, photoURL: this.User.image})
         console.log(auth)
         this.$router.replace('/signupsuccess')

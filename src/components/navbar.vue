@@ -11,85 +11,40 @@
          
             <sui-menu-item>
 
-                 <!-- <router-link to="/about">
-                    <sui-menu-item style="color:white;">About</sui-menu-item>
-                </router-link> -->
-
-                <!-- <router-link :to = "{path: 'searchgenre', name: 'searchgenre', params: {genre: 'Comedy'}}"> -->
                 <sui-dropdown style="color:white" item text="Genre" v-model="this.selectGenre">
                     <sui-dropdown-menu>
-                        <sui-dropdown-item v-on:click="searchGenre('action')" text="Action" />
-                        <sui-dropdown-item v-on:click="searchGenre('adventure')" text="Adventure" />
-                        <sui-dropdown-item v-on:click="searchGenre('comedy')" text="Comedy" />
-                        <sui-dropdown-item v-on:click="searchGenre('crime')" text="Crime" />
-                        <sui-dropdown-item v-on:click="searchGenre('fantasy')" text="Fantasy" />
-                        <sui-dropdown-item v-on:click="searchGenre('horror')" text="Horror" />
-                        <sui-dropdown-item v-on:click="searchGenre('romance')" text="Romance" />
-                        <sui-dropdown-item v-on:click="searchGenre('sci-fi')" text="Sci-fi" />
-                        <sui-dropdown-item v-on:click="searchGenre('thriller')" text="Thriller" />
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'action'}}">
+                        <sui-dropdown-item text="Action" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'Adventure'}}">
+                        <sui-dropdown-item text="Adventure" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'comedy'}}">
+                        <sui-dropdown-item text="Comedy" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'crime'}}">
+                        <sui-dropdown-item text="Crime" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'fantasy'}}">
+                        <sui-dropdown-item text="Fantasy" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'horror'}}">
+                        <sui-dropdown-item text="Horror" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'romance'}}">
+                        <sui-dropdown-item text="Romance" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'sci-fi'}}">
+                        <sui-dropdown-item text="Sci-fi" />
+                        </router-link>
+                        <router-link style="text-decoration: none; color: inherit;" :to="{path: 'searchgenre', name: 'searchGenre', params:{genre: 'thriller'}}">
+                        <sui-dropdown-item text="Thriller" />
+                        </router-link>
                         
                     </sui-dropdown-menu>
                 </sui-dropdown> 
-                <!-- </router-link> -->
             </sui-menu-item>
 
-            <!-- <sui-menu-item>
-                <router-link :to = "{path: 'searchgenre', name: 'searchgenre', params: {genre: 'Comedy'}}">
-                <sui-dropdown style="color:white" item text="Genre" v-model="this.selectGenre" :options="[
-                        
-                            {
-                            text: 'Comedy',
-                            value: 'Comedy',
-                            label: { color: 'red', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Sci-fi',
-                            value: 'Sci-fi',
-                            label: { color: 'blue', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Romance',
-                            value: 'Romance',
-                            label: { color: 'black', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Action',
-                            value: 'Action',
-                            label: { color: 'purple', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Drama',
-                            value: 'Drama',
-                            label: { color: 'orange', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Fantasy',
-                            value: 'Fantasy',
-                            label: { color: 'gray', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Horror',
-                            value: 'Horror',
-                            label: { color: 'yellow', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Crime',
-                            value: 'Crime',
-                            label: { color: 'pink', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Adventure',
-                            value: 'Adventure',
-                            label: { color: 'green', empty: true, circular: true }
-                            },
-                            {
-                            text: 'Thriller',
-                            value: 'Thriller',
-                            label: { color: 'brown', empty: true, circular: true }
-                            }
-                        ]" />
-                    </router-link>
-            </sui-menu-item> -->
         </sui-menu>
 
         <sui-menu-item position="right">
@@ -115,13 +70,10 @@ export default {
     name: "navbar",
     data() {
         return{
-            selectGenre: ''
+            
         }
     },
     methods: {
-        searchGenre(genre) {
-            this.$router.replace('/searchgenre/' + genre)
-        },
         logout() {
             const auth = getAuth()
             signOut(auth)
@@ -138,6 +90,7 @@ export default {
         
         }
      },
+     
     
 }       
 

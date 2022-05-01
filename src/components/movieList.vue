@@ -78,20 +78,6 @@
           <div class="carousel__item">
             <sui-image :src="`${movie.image}`" height="600" />
             <br>
-            <!-- <sui-card-content>
-              <sui-card-header textAlign="center" style="font-size:40px; color:crimson">{{movie.title}}
-              </sui-card-header>
-              <sui-card-description>
-                <sui-card-meta>
-                  <font face="Comic sans MS" size=" 5">
-                    <span><strong style="color:crimson">Genres</strong> :
-                      {{movie.genres}}</span><br>
-                    <span><strong style="color:crimson">Release State</strong> :
-                      {{movie.releaseState}}</span><br>
-                  </font>
-                </sui-card-meta>
-              </sui-card-description>
-            </sui-card-content> -->
             <br>
           </div>
         </Slide>
@@ -114,22 +100,20 @@
     <div style="margin:0px 50px">
       <sui-card-group :itemsPerRow="4" doubling>
         <sui-card class="card-size" v-for="(movie, key) in top20Movies" :key='key' style="background-color:#000000">
-          <sui-image class="card-img-top" v-bind:src="movie.image" />
+          <sui-image style="width:auto; height: 80%;" class="card-img-top" v-bind:src="movie.image" />
 
            <div class="card-body">
           <sui-card-content>
-            <font face="Aldrich" size=" 5">
+            <font face="Aldrich" size=" 3">
               <sui-card-header textAlign="center" style="color:crimson"> {{movie.title}}
               </sui-card-header>
             </font>
 
             <sui-card-meta style="text-align:center">
 
-              <font face="Krona One" size=" 4">
+              <font face="Krona One" size=" 2">
                 <sui-card-description>
-                  <!-- <span style="color:white"><strong>Year </strong>: {{movie.year}} </span><br> -->
                   <span style="color:white"><strong>Rank </strong>: {{movie.rank}} </span><br>
-                  <!-- <span style="color:white"><strong>Rating </strong>: {{movie.imDbRating}} </span><br> -->
                 </sui-card-description>
               </font>
 
